@@ -1,0 +1,46 @@
+group 'ro.jtonic.handson'
+version '0.1.0-SNAPSHOT'
+
+apply plugin: 'groovy'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+archivesBaseName = 'details-plugin'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile localGroovy()
+    compile gradleApi()
+    testCompile "junit:junit:4.12"
+}
+
+
+publishing {
+    publications {
+        impl(MavenPublication) {
+            groupId "$group"
+            artifactId "$project.rootProject.name"
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url "$buildDir/../lib"
+        }
+    }
+}
+
+/*
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository (url: 'file:../lib')
+        }
+    }
+}
+*/
